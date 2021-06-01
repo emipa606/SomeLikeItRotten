@@ -8,7 +8,18 @@ Some animals can eat rotting corpses, so let them do it!
 This mod enables the eating of rotting corpses. Due to the implementation the corpses are eatable by all pawns but only the animals defined in the settings will actively eat them and they will not get food-poisoning from the corpses.
 Rotting corpses will now have 50% of the original bodys nutrition-value instead of 0%.
 
+Save game compatible and supports all animals. 
+
 Made it as a companion mod to the https://steamcommunity.com/sharedfiles/filedetails/?id=2496563418]Rats! mod for those who wanted a way to take care of their corpses with a rat-farm.
+
+[table]
+	[tr]
+		[td]https://invite.gg/Mlie]![Image](https://i.imgur.com/zdzzBrc.png)
+[/td]
+		[td]https://github.com/emipa606/SomeLikeItRotten]![Image](https://i.imgur.com/kTkpTOE.png)
+[/td]
+	[/tr]
+[/table]
 
 ![Image](https://i.imgur.com/Rs6T6cr.png)
 

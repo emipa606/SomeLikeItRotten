@@ -146,7 +146,6 @@ namespace SomeLikeItRotten
 
         public override void WriteSettings()
         {
-            base.WriteSettings();
             Settings.RottenAnimals = new List<string>();
             for (var index = 0; index < SomeLikeItRotten.AllAnimals.Count; index++)
             {
@@ -156,6 +155,8 @@ namespace SomeLikeItRotten
                     Settings.RottenAnimals.Add(animal.defName);
                 }
             }
+
+            base.WriteSettings();
         }
 
         /// <summary>

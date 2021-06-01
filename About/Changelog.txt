@@ -1,4 +1,7 @@
 # Changelog for SomeLikeItRotten
 
+1.0.1.0 - Settings should now be saved correctly
+
+
 1.0.0.0 - First publish
 
