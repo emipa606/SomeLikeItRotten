@@ -8,6 +8,8 @@ namespace SomeLikeItRotten
     [StaticConstructorOnStartup]
     internal class SomeLikeItRottenMod : Mod
     {
+        private const float checkboxSpacer = 100;
+
         /// <summary>
         ///     The instance of the settings to be read by the mod
         /// </summary>
@@ -18,6 +20,8 @@ namespace SomeLikeItRotten
         private static Vector2 scrollPosition;
 
         private static bool[] rottenTempList;
+
+        private static bool[] boneTempList;
 
 
         /// <summary>
@@ -58,6 +62,11 @@ namespace SomeLikeItRotten
                     settings.RottenAnimals = new List<string>();
                 }
 
+                if (settings.BoneAnimals == null)
+                {
+                    settings.BoneAnimals = new List<string>();
+                }
+
                 return settings;
             }
 
@@ -80,6 +89,16 @@ namespace SomeLikeItRotten
                 }
             }
 
+            if (boneTempList == null)
+            {
+                boneTempList = new bool[SomeLikeItRotten.AllAnimals.Count];
+                for (var index = 0; index < SomeLikeItRotten.AllAnimals.Count; index++)
+                {
+                    var animal = SomeLikeItRotten.AllAnimals[index];
+                    boneTempList[index] = Settings.BoneAnimals.Contains(animal.defName);
+                }
+            }
+
             base.DoSettingsWindowContents(rect);
             var listing_Standard = new Listing_Standard();
             listing_Standard.Begin(rect);
@@ -94,24 +113,48 @@ namespace SomeLikeItRotten
             }
             else
             {
-                listing_Standard.Gap();
+                listing_Standard.Label(string.Empty);
             }
 
+            listing_Standard.ColumnWidth = (rect.width - 60) / 3;
+            var labelSpot = listing_Standard.Label("SLIR.animal.label".Translate());
+            Widgets.Label(
+                new Rect(labelSpot.x + labelSpot.width - (checkboxSpacer * 1.25f), labelSpot.y, checkboxSpacer / 2,
+                    labelSpot.height), "SLIR.rotten.label".Translate());
+            Widgets.Label(
+                new Rect(labelSpot.x + labelSpot.width - (checkboxSpacer * 0.5f), labelSpot.y, checkboxSpacer / 2,
+                    labelSpot.height), "SLIR.bone.label".Translate());
+            listing_Standard.GapLine();
+            for (var i = 0; i < 2; i++)
+            {
+                listing_Standard.NewColumn();
+                listing_Standard.Gap(labelSpot.y);
+                labelSpot = listing_Standard.Label("SLIR.animal.label".Translate());
+                Widgets.Label(
+                    new Rect(labelSpot.x + labelSpot.width - (checkboxSpacer * 1.25f), labelSpot.y, checkboxSpacer / 2,
+                        labelSpot.height), "SLIR.rotten.label".Translate());
+                Widgets.Label(
+                    new Rect(labelSpot.x + labelSpot.width - (checkboxSpacer * 0.5f), labelSpot.y, checkboxSpacer / 2,
+                        labelSpot.height), "SLIR.bone.label".Translate());
+                listing_Standard.GapLine();
+            }
+
+            listing_Standard.End();
+
             var frameRect = rect;
-            frameRect.y += 100;
-            frameRect.height -= 100;
+            frameRect.y += labelSpot.y + 40;
+            frameRect.height -= labelSpot.y + 40;
             var contentRect = frameRect;
             contentRect.height = SomeLikeItRotten.AllAnimals.Count * 25f / 3;
             contentRect.width -= 20;
             contentRect.x = 0;
             contentRect.y = 0;
 
-            listing_Standard.GapLine();
-            listing_Standard.End();
 
             var scrollListing = new Listing_Standard();
             scrollListing.BeginScrollView(frameRect, ref scrollPosition, ref contentRect);
             scrollListing.ColumnWidth = (contentRect.width - 40) / 3;
+
             for (var index = 0; index < SomeLikeItRotten.AllAnimals.Count; index++)
             {
                 if (index == (SomeLikeItRotten.AllAnimals.Count / 3) + 1)
@@ -125,13 +168,15 @@ namespace SomeLikeItRotten
                 }
 
                 var animal = SomeLikeItRotten.AllAnimals[index];
-                HighlightedCheckbox(animal.label.CapitalizeFirst(), ref rottenTempList[index], scrollListing);
+                HighlightedCheckbox(animal.label.CapitalizeFirst(), ref rottenTempList[index], ref boneTempList[index],
+                    scrollListing);
             }
 
             scrollListing.EndScrollView(ref contentRect);
         }
 
-        private static void HighlightedCheckbox(string label, ref bool checkOn, Listing_Standard listing)
+        private static void HighlightedCheckbox(string label, ref bool checkOn, ref bool alsoCheckOn,
+            Listing_Standard listing)
         {
             var lineHeight = Text.LineHeight;
             var rect = listing.GetRect(lineHeight);
@@ -140,19 +185,31 @@ namespace SomeLikeItRotten
                 Widgets.DrawHighlight(rect);
             }
 
-            Widgets.CheckboxLabeled(rect, label, ref checkOn);
+            var leftRect = rect;
+            leftRect.width -= checkboxSpacer;
+            var rightRect = rect;
+            rightRect.width = checkboxSpacer / 2;
+            rightRect.x = rect.x + leftRect.width + (checkboxSpacer / 2);
+            Widgets.CheckboxLabeled(leftRect, label, ref checkOn);
+            Widgets.Checkbox(rightRect.position, ref alsoCheckOn);
             listing.Gap(listing.verticalSpacing);
         }
 
         public override void WriteSettings()
         {
             Settings.RottenAnimals = new List<string>();
+            Settings.BoneAnimals = new List<string>();
             for (var index = 0; index < SomeLikeItRotten.AllAnimals.Count; index++)
             {
                 var animal = SomeLikeItRotten.AllAnimals[index];
                 if (rottenTempList[index])
                 {
                     Settings.RottenAnimals.Add(animal.defName);
+                }
+
+                if (boneTempList[index])
+                {
+                    Settings.BoneAnimals.Add(animal.defName);
                 }
             }
 

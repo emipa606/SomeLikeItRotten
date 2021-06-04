@@ -24,14 +24,8 @@ namespace SomeLikeItRotten
             harmony.PatchAll(Assembly.GetExecutingAssembly());
         }
 
-        public static void LogMessage(string message, bool forced = false, bool warning = false)
+        public static void LogMessage(string message, bool forced = false)
         {
-            if (warning)
-            {
-                Log.Warning($"[SomeLikeItRotten]: {message}");
-                return;
-            }
-
             if (!forced && !SomeLikeItRottenMod.instance.Settings.VerboseLogging)
             {
                 return;
@@ -40,14 +34,19 @@ namespace SomeLikeItRotten
             Log.Message($"[SomeLikeItRotten]: {message}");
         }
 
-        public static bool CanEat(Thing thing, Pawn pawn, bool OnlyFresh = false)
+        public static bool CanEat(Thing thing, Pawn pawn)
         {
-            if (thing.IngestibleNow)
+            if (thing is not Corpse corpse)
             {
-                return true;
+                if (thing.IngestibleNow)
+                {
+                    return true;
+                }
+
+                return false;
             }
 
-            if (thing is not Corpse corpse || !corpse.InnerPawn.RaceProps.IsFlesh)
+            if (!corpse.InnerPawn.RaceProps.IsFlesh)
             {
                 return false;
             }
@@ -57,7 +56,9 @@ namespace SomeLikeItRotten
                 case RotStage.Fresh:
                     return true;
                 case RotStage.Rotting:
-                    return SomeLikeItRottenMod.instance.Settings.RottenAnimals.Contains(pawn.def.defName) && !OnlyFresh;
+                    return SomeLikeItRottenMod.instance.Settings.RottenAnimals.Contains(pawn.def.defName);
+                case RotStage.Dessicated:
+                    return SomeLikeItRottenMod.instance.Settings.BoneAnimals.Contains(pawn.def.defName);
                 default:
                     return false;
             }

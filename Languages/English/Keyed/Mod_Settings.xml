@@ -3,6 +3,8 @@
   <SLIR.logging.label>Enable verbose logging</SLIR.logging.label>
   <SLIR.logging.tooltip>Shows verbose logging, for finding errors</SLIR.logging.tooltip>
   <SLIR.version.label>Installed mod-version: {0}</SLIR.version.label>
-  <SLIR.animaleats.label>Animal</SLIR.animaleats.label>
-  <SLIR.info.label>Select what animals should be able to eat rotten corpses</SLIR.info.label>
+  <SLIR.animal.label>Animal</SLIR.animal.label>
+  <SLIR.rotten.label>Rotten</SLIR.rotten.label>
+  <SLIR.bone.label>Bone</SLIR.bone.label>
+  <SLIR.info.label>Select what animals should be able to eat rotten or dessicated corpses</SLIR.info.label>
 </LanguageData>

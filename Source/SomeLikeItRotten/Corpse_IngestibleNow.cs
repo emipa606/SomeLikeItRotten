@@ -10,8 +10,7 @@ namespace SomeLikeItRotten
         public static void Postfix(Corpse __instance, ref bool __result)
         {
             __result = !__instance.IsBurning() && __instance.def.IsIngestible &&
-                       __instance.InnerPawn.RaceProps.IsFlesh && (__instance.GetRotStage() == RotStage.Fresh ||
-                                                                  __instance.GetRotStage() == RotStage.Rotting);
+                       __instance.InnerPawn.RaceProps.IsFlesh;
         }
     }
 }

@@ -46,7 +46,7 @@ namespace SomeLikeItRotten
                     factor = 0.5f;
                     break;
                 default:
-                    factor = 0;
+                    factor = 0.25f;
                     break;
             }
 
