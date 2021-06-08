@@ -5,8 +5,9 @@
 
 Some animals can eat rotting corpses, so let them do it!
  
-This mod enables the eating of rotting corpses. Due to the implementation the corpses are eatable by all pawns but only the animals defined in the settings will actively eat them and they will not get food-poisoning from the corpses.
-Rotting corpses will now have 50% of the original bodys nutrition-value instead of 0%.
+This mod enables the eating of rotting or dessicated corpses. Due to the implementation the corpses are eatable by all pawns but only the animals defined in the settings will actively eat them and they will not get food-poisoning from the corpses.
+Rotting corpses will now have 50% of the original nutrition value
+Dessicated corpses will have 25% of the original nutrition value
 
 Save game compatible and supports all animals. 
 

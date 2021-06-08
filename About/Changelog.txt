@@ -1,5 +1,8 @@
 # Changelog for SomeLikeItRotten
 
+1.0.3.0 - Settings now shows all races, not just animals
+
+
 1.0.2.0 - Added support for eating dessicated corpses
 
 

@@ -14,17 +14,17 @@ namespace SomeLikeItRotten
 
         static SomeLikeItRotten()
         {
-            AllAnimals = (from animal in DefDatabase<ThingDef>.AllDefsListForReading
-                where animal.race?.Animal == true
-                orderby animal.label
-                select animal).ToList();
+            AllAnimals = (from creature in DefDatabase<ThingDef>.AllDefsListForReading
+                where creature.race != null
+                orderby creature.label
+                select creature).ToList();
 
-            LogMessage($"Found {AllAnimals.Count} animals", true);
+            LogMessage($"Found {AllAnimals.Count} creatures", true);
             var harmony = new Harmony("Mlie.SomeLikeItRotten");
             harmony.PatchAll(Assembly.GetExecutingAssembly());
         }
 
-        public static void LogMessage(string message, bool forced = false)
+        private static void LogMessage(string message, bool forced = false)
         {
             if (!forced && !SomeLikeItRottenMod.instance.Settings.VerboseLogging)
             {

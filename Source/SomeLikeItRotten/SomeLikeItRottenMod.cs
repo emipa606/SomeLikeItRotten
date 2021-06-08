@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Mlie;
 using UnityEngine;
 using Verse;
@@ -157,7 +158,7 @@ namespace SomeLikeItRotten
 
             for (var index = 0; index < SomeLikeItRotten.AllAnimals.Count; index++)
             {
-                if (index == (SomeLikeItRotten.AllAnimals.Count / 3) + 1)
+                if (index == (int) Math.Floor(SomeLikeItRotten.AllAnimals.Count / (decimal) 3))
                 {
                     scrollListing.NewColumn();
                 }
