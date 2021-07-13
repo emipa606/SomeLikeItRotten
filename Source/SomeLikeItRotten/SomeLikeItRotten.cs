@@ -38,12 +38,7 @@ namespace SomeLikeItRotten
         {
             if (thing is not Corpse corpse)
             {
-                if (thing.IngestibleNow)
-                {
-                    return true;
-                }
-
-                return false;
+                return thing.IngestibleNow;
             }
 
             if (!corpse.InnerPawn.RaceProps.IsFlesh)

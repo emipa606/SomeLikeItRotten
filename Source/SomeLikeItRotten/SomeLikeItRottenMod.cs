@@ -153,7 +153,7 @@ namespace SomeLikeItRotten
 
 
             var scrollListing = new Listing_Standard();
-            scrollListing.BeginScrollView(frameRect, ref scrollPosition, ref contentRect);
+            BeginScrollView(ref scrollListing, frameRect, ref scrollPosition, ref contentRect);
             scrollListing.ColumnWidth = (contentRect.width - 40) / 3;
 
             for (var index = 0; index < SomeLikeItRotten.AllAnimals.Count; index++)
@@ -163,7 +163,7 @@ namespace SomeLikeItRotten
                     scrollListing.NewColumn();
                 }
 
-                if (index == (SomeLikeItRotten.AllAnimals.Count / 3 * 2) + 1)
+                if (index == (int) Math.Floor(SomeLikeItRotten.AllAnimals.Count / (decimal) 3 * 2))
                 {
                     scrollListing.NewColumn();
                 }
@@ -173,7 +173,23 @@ namespace SomeLikeItRotten
                     scrollListing);
             }
 
-            scrollListing.EndScrollView(ref contentRect);
+            EndScrollView(ref scrollListing, ref contentRect, frameRect.width, listing_Standard.CurHeight);
+        }
+
+        private static void BeginScrollView(ref Listing_Standard listingStandard, Rect rect, ref Vector2 position,
+            ref Rect viewRect)
+        {
+            Widgets.BeginScrollView(rect, ref position, viewRect);
+            rect.height = 100000f;
+            rect.width -= 20f;
+            listingStandard.Begin(rect.AtZero());
+        }
+
+        private void EndScrollView(ref Listing_Standard listingStandard, ref Rect viewRect, float width, float height)
+        {
+            viewRect = new Rect(0f, 0f, width, height);
+            Widgets.EndScrollView();
+            listingStandard.End();
         }
 
         private static void HighlightedCheckbox(string label, ref bool checkOn, ref bool alsoCheckOn,
