@@ -36,12 +36,17 @@ namespace SomeLikeItRotten
 
         public static bool CanEat(Thing thing, Pawn pawn)
         {
+            if (thing == null)
+            {
+                return false;
+            }
+
             if (thing is not Corpse corpse)
             {
                 return thing.IngestibleNow;
             }
 
-            if (!corpse.InnerPawn.RaceProps.IsFlesh)
+            if (corpse.InnerPawn?.RaceProps?.IsFlesh != true)
             {
                 return false;
             }

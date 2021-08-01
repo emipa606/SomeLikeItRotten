@@ -19,6 +19,11 @@ namespace SomeLikeItRotten
                 return true;
             }
 
+            if (corpse.InnerPawn == null)
+            {
+                return false;
+            }
+
             if (!SomeLikeItRotten.CanEat(corpse, pawn))
             {
                 return true;

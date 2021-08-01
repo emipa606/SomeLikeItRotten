@@ -19,7 +19,7 @@ namespace SomeLikeItRotten
 
             bool Validator(Thing t)
             {
-                return t.def.category == ThingCategory.Item && getter.CanReserve(t) &&
+                return t.def.category == ThingCategory.Item && getter.CanReserve(t) && !t.IsForbidden(getter) &&
                        SomeLikeItRotten.CanEat(t, getter) && getter.RaceProps.CanEverEat(t);
             }
 
