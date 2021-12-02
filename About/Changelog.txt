@@ -1,5 +1,8 @@
 # Changelog for SomeLikeItRotten
 
+1.0.6.0 - Fixed the scrollview, thanks Taranchuk for the simple solution!
+
+
 1.0.5.0 - Should now not cause issues when the last of a corpse is eaten
 
 
