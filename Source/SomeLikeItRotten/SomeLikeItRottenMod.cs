@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Mlie;
 using UnityEngine;
 using Verse;
@@ -23,6 +24,8 @@ internal class SomeLikeItRottenMod : Mod
     private static bool[] rottenTempList;
 
     private static bool[] boneTempList;
+    private static readonly Vector2 searchSize = new Vector2(200f, 25f);
+    private static string searchText = "";
 
 
     /// <summary>
@@ -103,7 +106,7 @@ internal class SomeLikeItRottenMod : Mod
         base.DoSettingsWindowContents(rect);
         var listing_Standard = new Listing_Standard();
         listing_Standard.Begin(rect);
-        listing_Standard.Label("SLIR.info.label".Translate());
+        var firstLabel = listing_Standard.Label("SLIR.info.label".Translate());
         listing_Standard.CheckboxLabeled("SLIR.logging.label".Translate(), ref Settings.VerboseLogging,
             "SLIR.logging.tooltip".Translate());
         if (currentVersion != null)
@@ -116,6 +119,17 @@ internal class SomeLikeItRottenMod : Mod
         {
             listing_Standard.Label(string.Empty);
         }
+
+        searchText =
+            Widgets.TextField(
+                new Rect(
+                    firstLabel.position +
+                    new Vector2(rect.width - searchSize.x, 0),
+                    searchSize),
+                searchText);
+        TooltipHandler.TipRegion(new Rect(
+            firstLabel.position + new Vector2(rect.width - searchSize.x, 0),
+            searchSize), "SLIR.search".Translate());
 
         listing_Standard.ColumnWidth = (rect.width - 60) / 3;
         var labelSpot = listing_Standard.Label("SLIR.animal.label".Translate());
@@ -146,7 +160,16 @@ internal class SomeLikeItRottenMod : Mod
         frameRect.y += labelSpot.y + 40;
         frameRect.height -= labelSpot.y + 40;
         var contentRect = frameRect;
-        contentRect.height = SomeLikeItRotten.AllAnimals.Count * 25f / 3;
+        var foundAnimals = SomeLikeItRotten.AllAnimals;
+        if (!string.IsNullOrEmpty(searchText))
+        {
+            foundAnimals = SomeLikeItRotten.AllAnimals.Where(def =>
+                    def.label.ToLower().Contains(searchText.ToLower()) ||
+                    def.modContentPack?.Name.ToLower().Contains(searchText.ToLower()) == true)
+                .ToList();
+        }
+
+        contentRect.height = (foundAnimals.Count * 25f / 3) + 25f;
         contentRect.width -= 20;
         contentRect.x = 0;
         contentRect.y = 0;
@@ -157,21 +180,22 @@ internal class SomeLikeItRottenMod : Mod
         scrollListing.Begin(contentRect);
         scrollListing.ColumnWidth = (contentRect.width - 40) / 3;
 
-        for (var index = 0; index < SomeLikeItRotten.AllAnimals.Count; index++)
+        for (var index = 0; index < foundAnimals.Count; index++)
         {
-            if (index == (int)Math.Floor(SomeLikeItRotten.AllAnimals.Count / (decimal)3))
-            {
-                scrollListing.NewColumn();
-            }
-
-            if (index == (int)Math.Floor(SomeLikeItRotten.AllAnimals.Count / (decimal)3 * 2))
-            {
-                scrollListing.NewColumn();
-            }
-
-            var animal = SomeLikeItRotten.AllAnimals[index];
-            HighlightedCheckbox(animal.label.CapitalizeFirst(), ref rottenTempList[index], ref boneTempList[index],
+            var animal = foundAnimals[index];
+            var tempIndex = SomeLikeItRotten.AllAnimals.IndexOf(animal);
+            HighlightedCheckbox(animal.label.CapitalizeFirst(), ref rottenTempList[tempIndex],
+                ref boneTempList[tempIndex],
                 scrollListing);
+            if (index == (int)Math.Round(foundAnimals.Count / (decimal)3))
+            {
+                scrollListing.NewColumn();
+            }
+
+            if (index == (int)Math.Round(foundAnimals.Count / (decimal)3 * 2))
+            {
+                scrollListing.NewColumn();
+            }
         }
 
         scrollListing.End();

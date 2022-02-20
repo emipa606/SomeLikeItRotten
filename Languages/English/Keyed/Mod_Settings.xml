@@ -6,5 +6,6 @@
   <SLIR.animal.label>Animal</SLIR.animal.label>
   <SLIR.rotten.label>Rotten</SLIR.rotten.label>
   <SLIR.bone.label>Bone</SLIR.bone.label>
+  <SLIR.search>Search</SLIR.search>
   <SLIR.info.label>Select what animals should be able to eat rotten or dessicated corpses</SLIR.info.label>
 </LanguageData>
