@@ -31,7 +31,7 @@ public class StatPart_IsCorpseFreshOrRotten : StatPart
             return false;
         }
 
-        if (!(req.Thing is Corpse corpse))
+        if (req.Thing is not Corpse corpse)
         {
             factor = 1f;
             return false;
