@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Mlie;
 using UnityEngine;
@@ -43,8 +42,7 @@ internal class SomeLikeItRottenMod : Mod
         instance = this;
         scrollPosition = Vector2.zero;
         currentVersion =
-            VersionFromManifest.GetVersionFromModMetaData(
-                ModLister.GetActiveModWithIdentifier("Mlie.SomeLikeItRotten"));
+            VersionFromManifest.GetVersionFromModMetaData(content.ModMetaData);
     }
 
 
@@ -63,12 +61,12 @@ internal class SomeLikeItRottenMod : Mod
             settings = GetSettings<SomeLikeItRottenModSettings>();
             if (settings.RottenAnimals == null)
             {
-                settings.RottenAnimals = new List<string>();
+                settings.RottenAnimals = [];
             }
 
             if (settings.BoneAnimals == null)
             {
-                settings.BoneAnimals = new List<string>();
+                settings.BoneAnimals = [];
             }
 
             return settings;
@@ -224,8 +222,8 @@ internal class SomeLikeItRottenMod : Mod
 
     public override void WriteSettings()
     {
-        Settings.RottenAnimals = new List<string>();
-        Settings.BoneAnimals = new List<string>();
+        Settings.RottenAnimals = [];
+        Settings.BoneAnimals = [];
         for (var index = 0; index < SomeLikeItRotten.AllAnimals.Count; index++)
         {
             var animal = SomeLikeItRotten.AllAnimals[index];

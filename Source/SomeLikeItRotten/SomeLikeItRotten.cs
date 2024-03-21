@@ -15,7 +15,7 @@ public static class SomeLikeItRotten
     static SomeLikeItRotten()
     {
         AllAnimals = (from creature in DefDatabase<ThingDef>.AllDefsListForReading
-            where creature.race != null
+            where creature.race != null && !creature.IsCorpse
             orderby creature.label
             select creature).ToList();
 

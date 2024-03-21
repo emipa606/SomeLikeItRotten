@@ -24,11 +24,6 @@ public static class FoodUtility_AddFoodPoisoningHediff
             return false;
         }
 
-        if (!SomeLikeItRotten.CanEat(corpse, pawn))
-        {
-            return true;
-        }
-
-        return false;
+        return !SomeLikeItRotten.CanEat(corpse, pawn);
     }
 }

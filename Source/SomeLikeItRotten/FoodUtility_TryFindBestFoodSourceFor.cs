@@ -17,12 +17,6 @@ public static class FoodUtility_TryFindBestFoodSourceFor
             return true;
         }
 
-        bool Validator(Thing t)
-        {
-            return t.def.category == ThingCategory.Item && getter.CanReserve(t) && !t.IsForbidden(getter) &&
-                   SomeLikeItRotten.CanEat(t, getter) && getter.RaceProps.CanEverEat(t);
-        }
-
         //SomeLikeItRotten.LogMessage($"Looking for food for {getter}");
         var thing = GenClosest.ClosestThingReachable(getter.Position, getter.Map,
             ThingRequest.ForGroup(ThingRequestGroup.HaulableAlways), PathEndMode.OnCell, TraverseParms.For(getter),
@@ -36,5 +30,11 @@ public static class FoodUtility_TryFindBestFoodSourceFor
         __result = thing;
         foodDef = FoodUtility.GetFinalIngestibleDef(thing, true);
         return false;
+
+        bool Validator(Thing t)
+        {
+            return t.def.category == ThingCategory.Item && getter.CanReserve(t) && !t.IsForbidden(getter) &&
+                   SomeLikeItRotten.CanEat(t, getter) && getter.RaceProps.CanEverEat(t);
+        }
     }
 }
