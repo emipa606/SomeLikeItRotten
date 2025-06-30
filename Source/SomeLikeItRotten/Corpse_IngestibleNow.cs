@@ -4,7 +4,7 @@ using Verse;
 
 namespace SomeLikeItRotten;
 
-[HarmonyPatch(typeof(Corpse), "IngestibleNow", MethodType.Getter)]
+[HarmonyPatch(typeof(Corpse), nameof(Corpse.IngestibleNow), MethodType.Getter)]
 public static class Corpse_IngestibleNow
 {
     public static void Postfix(Corpse __instance, ref bool __result)

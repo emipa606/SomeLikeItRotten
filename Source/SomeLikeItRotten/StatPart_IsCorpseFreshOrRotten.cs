@@ -23,15 +23,9 @@ public class StatPart_IsCorpseFreshOrRotten : StatPart
         return null;
     }
 
-    private bool TryGetIsFreshFactor(StatRequest req, out float factor)
+    private static bool TryGetIsFreshFactor(StatRequest req, out float factor)
     {
-        if (!req.HasThing)
-        {
-            factor = 1f;
-            return false;
-        }
-
-        if (req.Thing is not Corpse corpse)
+        if (!req.HasThing || req.Thing is not Corpse corpse)
         {
             factor = 1f;
             return false;

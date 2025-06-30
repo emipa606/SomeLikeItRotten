@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <SLIR.logging.label>Enable verbose logging</SLIR.logging.label>
   <SLIR.logging.tooltip>Shows verbose logging, for finding errors</SLIR.logging.tooltip>

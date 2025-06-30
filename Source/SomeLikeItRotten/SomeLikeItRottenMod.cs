@@ -9,12 +9,12 @@ namespace SomeLikeItRotten;
 [StaticConstructorOnStartup]
 internal class SomeLikeItRottenMod : Mod
 {
-    private const float checkboxSpacer = 100;
+    private const float CheckboxSpacer = 100;
 
     /// <summary>
     ///     The instance of the settings to be read by the mod
     /// </summary>
-    public static SomeLikeItRottenMod instance;
+    public static SomeLikeItRottenMod Instance;
 
     private static string currentVersion;
 
@@ -23,7 +23,7 @@ internal class SomeLikeItRottenMod : Mod
     private static bool[] rottenTempList;
 
     private static bool[] boneTempList;
-    private static readonly Vector2 searchSize = new Vector2(200f, 25f);
+    private static readonly Vector2 searchSize = new(200f, 25f);
     private static string searchText = "";
 
 
@@ -39,7 +39,7 @@ internal class SomeLikeItRottenMod : Mod
     public SomeLikeItRottenMod(ModContentPack content)
         : base(content)
     {
-        instance = this;
+        Instance = this;
         scrollPosition = Vector2.zero;
         currentVersion =
             VersionFromManifest.GetVersionFromModMetaData(content.ModMetaData);
@@ -59,20 +59,12 @@ internal class SomeLikeItRottenMod : Mod
             }
 
             settings = GetSettings<SomeLikeItRottenModSettings>();
-            if (settings.RottenAnimals == null)
-            {
-                settings.RottenAnimals = [];
-            }
+            settings.RottenAnimals ??= [];
 
-            if (settings.BoneAnimals == null)
-            {
-                settings.BoneAnimals = [];
-            }
+            settings.BoneAnimals ??= [];
 
             return settings;
         }
-
-        set => settings = value;
     }
 
     /// <summary>
@@ -102,20 +94,20 @@ internal class SomeLikeItRottenMod : Mod
         }
 
         base.DoSettingsWindowContents(rect);
-        var listing_Standard = new Listing_Standard();
-        listing_Standard.Begin(rect);
-        var firstLabel = listing_Standard.Label("SLIR.info.label".Translate());
-        listing_Standard.CheckboxLabeled("SLIR.logging.label".Translate(), ref Settings.VerboseLogging,
+        var listingStandard = new Listing_Standard();
+        listingStandard.Begin(rect);
+        var firstLabel = listingStandard.Label("SLIR.info.label".Translate());
+        listingStandard.CheckboxLabeled("SLIR.logging.label".Translate(), ref Settings.VerboseLogging,
             "SLIR.logging.tooltip".Translate());
         if (currentVersion != null)
         {
             GUI.contentColor = Color.gray;
-            listing_Standard.Label("SLIR.version.label".Translate(currentVersion));
+            listingStandard.Label("SLIR.version.label".Translate(currentVersion));
             GUI.contentColor = Color.white;
         }
         else
         {
-            listing_Standard.Label(string.Empty);
+            listingStandard.Label(string.Empty);
         }
 
         searchText =
@@ -129,30 +121,30 @@ internal class SomeLikeItRottenMod : Mod
             firstLabel.position + new Vector2(rect.width - searchSize.x, 0),
             searchSize), "SLIR.search".Translate());
 
-        listing_Standard.ColumnWidth = (rect.width - 60) / 3;
-        var labelSpot = listing_Standard.Label("SLIR.animal.label".Translate());
+        listingStandard.ColumnWidth = (rect.width - 60) / 3;
+        var labelSpot = listingStandard.Label("SLIR.animal.label".Translate());
         Widgets.Label(
-            new Rect(labelSpot.x + labelSpot.width - (checkboxSpacer * 1.25f), labelSpot.y, checkboxSpacer / 2,
+            new Rect(labelSpot.x + labelSpot.width - (CheckboxSpacer * 1.25f), labelSpot.y, CheckboxSpacer / 2,
                 labelSpot.height), "SLIR.rotten.label".Translate());
         Widgets.Label(
-            new Rect(labelSpot.x + labelSpot.width - (checkboxSpacer * 0.5f), labelSpot.y, checkboxSpacer / 2,
+            new Rect(labelSpot.x + labelSpot.width - (CheckboxSpacer * 0.5f), labelSpot.y, CheckboxSpacer / 2,
                 labelSpot.height), "SLIR.bone.label".Translate());
-        listing_Standard.GapLine();
+        listingStandard.GapLine();
         for (var i = 0; i < 2; i++)
         {
-            listing_Standard.NewColumn();
-            listing_Standard.Gap(labelSpot.y);
-            labelSpot = listing_Standard.Label("SLIR.animal.label".Translate());
+            listingStandard.NewColumn();
+            listingStandard.Gap(labelSpot.y);
+            labelSpot = listingStandard.Label("SLIR.animal.label".Translate());
             Widgets.Label(
-                new Rect(labelSpot.x + labelSpot.width - (checkboxSpacer * 1.25f), labelSpot.y, checkboxSpacer / 2,
+                new Rect(labelSpot.x + labelSpot.width - (CheckboxSpacer * 1.25f), labelSpot.y, CheckboxSpacer / 2,
                     labelSpot.height), "SLIR.rotten.label".Translate());
             Widgets.Label(
-                new Rect(labelSpot.x + labelSpot.width - (checkboxSpacer * 0.5f), labelSpot.y, checkboxSpacer / 2,
+                new Rect(labelSpot.x + labelSpot.width - (CheckboxSpacer * 0.5f), labelSpot.y, CheckboxSpacer / 2,
                     labelSpot.height), "SLIR.bone.label".Translate());
-            listing_Standard.GapLine();
+            listingStandard.GapLine();
         }
 
-        listing_Standard.End();
+        listingStandard.End();
 
         var frameRect = rect;
         frameRect.y += labelSpot.y + 40;
@@ -211,10 +203,10 @@ internal class SomeLikeItRottenMod : Mod
         }
 
         var leftRect = rect;
-        leftRect.width -= checkboxSpacer;
+        leftRect.width -= CheckboxSpacer;
         var rightRect = rect;
-        rightRect.width = checkboxSpacer / 2;
-        rightRect.x = rect.x + leftRect.width + (checkboxSpacer / 2);
+        rightRect.width = CheckboxSpacer / 2;
+        rightRect.x = rect.x + leftRect.width + (CheckboxSpacer / 2);
         Widgets.CheckboxLabeled(leftRect, label, ref checkOn);
         Widgets.Checkbox(rightRect.position, ref alsoCheckOn);
         listing.Gap(listing.verticalSpacing);

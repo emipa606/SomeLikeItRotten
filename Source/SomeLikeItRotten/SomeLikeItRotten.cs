@@ -26,7 +26,7 @@ public static class SomeLikeItRotten
 
     private static void LogMessage(string message, bool forced = false)
     {
-        if (!forced && !SomeLikeItRottenMod.instance.Settings.VerboseLogging)
+        if (!forced && !SomeLikeItRottenMod.Instance.Settings.VerboseLogging)
         {
             return;
         }
@@ -56,9 +56,9 @@ public static class SomeLikeItRotten
             case RotStage.Fresh:
                 return true;
             case RotStage.Rotting:
-                return SomeLikeItRottenMod.instance.Settings.RottenAnimals.Contains(pawn.def.defName);
+                return SomeLikeItRottenMod.Instance.Settings.RottenAnimals.Contains(pawn.def.defName);
             case RotStage.Dessicated:
-                return SomeLikeItRottenMod.instance.Settings.BoneAnimals.Contains(pawn.def.defName);
+                return SomeLikeItRottenMod.Instance.Settings.BoneAnimals.Contains(pawn.def.defName);
             default:
                 return false;
         }
