@@ -19,7 +19,7 @@ public static class FoodUtility_TryFindBestFoodSourceFor
 
         var thing = GenClosest.ClosestThingReachable(getter.Position, getter.Map,
             ThingRequest.ForGroup(ThingRequestGroup.HaulableAlways), PathEndMode.OnCell, TraverseParms.For(getter),
-            10f, Validator);
+            10f, validator);
         if (thing == null)
         {
             return true;
@@ -29,7 +29,7 @@ public static class FoodUtility_TryFindBestFoodSourceFor
         foodDef = FoodUtility.GetFinalIngestibleDef(thing, true);
         return false;
 
-        bool Validator(Thing t)
+        bool validator(Thing t)
         {
             return t.def.category == ThingCategory.Item && getter.CanReserve(t) && !t.IsForbidden(getter) &&
                    SomeLikeItRotten.CanEat(t, getter) && getter.RaceProps.CanEverEat(t);

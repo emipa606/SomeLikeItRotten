@@ -174,7 +174,7 @@ internal class SomeLikeItRottenMod : Mod
         {
             var animal = foundAnimals[index];
             var tempIndex = SomeLikeItRotten.AllAnimals.IndexOf(animal);
-            HighlightedCheckbox(animal.label.CapitalizeFirst(), ref rottenTempList[tempIndex],
+            highlightedCheckbox(animal.label.CapitalizeFirst(), ref rottenTempList[tempIndex],
                 ref boneTempList[tempIndex],
                 scrollListing);
             if (index == (int)Math.Round(foundAnimals.Count / (decimal)3))
@@ -192,7 +192,7 @@ internal class SomeLikeItRottenMod : Mod
         Widgets.EndScrollView();
     }
 
-    private static void HighlightedCheckbox(string label, ref bool checkOn, ref bool alsoCheckOn,
+    private static void highlightedCheckbox(string label, ref bool checkOn, ref bool alsoCheckOn,
         Listing_Standard listing)
     {
         var lineHeight = Text.LineHeight;

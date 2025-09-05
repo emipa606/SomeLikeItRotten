@@ -7,7 +7,7 @@ public class StatPart_IsCorpseFreshOrRotten : StatPart
 {
     public override void TransformValue(StatRequest req, ref float val)
     {
-        if (TryGetIsFreshFactor(req, out var num))
+        if (tryGetIsFreshFactor(req, out var num))
         {
             val *= num;
         }
@@ -15,7 +15,7 @@ public class StatPart_IsCorpseFreshOrRotten : StatPart
 
     public override string ExplanationPart(StatRequest req)
     {
-        if (TryGetIsFreshFactor(req, out var num) && num != 1f)
+        if (tryGetIsFreshFactor(req, out var num) && num != 1f)
         {
             return "StatsReport_NotFresh".Translate() + ": x" + num.ToStringPercent();
         }
@@ -23,7 +23,7 @@ public class StatPart_IsCorpseFreshOrRotten : StatPart
         return null;
     }
 
-    private static bool TryGetIsFreshFactor(StatRequest req, out float factor)
+    private static bool tryGetIsFreshFactor(StatRequest req, out float factor)
     {
         if (!req.HasThing || req.Thing is not Corpse corpse)
         {

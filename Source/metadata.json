@@ -3,11 +3,17 @@
   "CanAdd": "0",
   "CanRemove": "0",
   "PreviewVersion": "1.6",
-  "LastXmlCleaning": "2025-06-30T22:57:17.7227631+02:00",
+  "LastXmlCleaning": "2025-09-05T20:46:41.4595053+02:00",
   "SocialImageSet": true,
   "FundingSet": true,
   "SearchTags": [
     " nutrition",
     " corpses"
-  ]
+  ],
+  "Patches": true,
+  "Defs": false,
+  "Assemblies": true,
+  "LinesOfCode": 15321,
+  "LinesOfXML": 313,
+  "CodeBaseSize": 66
 }

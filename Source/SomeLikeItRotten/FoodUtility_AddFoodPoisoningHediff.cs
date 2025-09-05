@@ -10,7 +10,8 @@ public static class FoodUtility_AddFoodPoisoningHediff
 {
     public static bool Prefix(Pawn pawn, Thing ingestible, FoodPoisonCause cause)
     {
-        if (!SomeLikeItRottenMod.Instance.Settings.RottenAnimals.Contains(pawn.def.defName))
+        if (!SomeLikeItRottenMod.Instance.Settings.RottenAnimals.Contains(pawn.def.defName) &&
+            !SomeLikeItRottenMod.Instance.Settings.BoneAnimals.Contains(pawn.def.defName))
         {
             return true;
         }

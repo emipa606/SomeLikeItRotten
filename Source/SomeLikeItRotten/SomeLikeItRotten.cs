@@ -19,12 +19,12 @@ public static class SomeLikeItRotten
             orderby creature.label
             select creature).ToList();
 
-        LogMessage($"Found {AllAnimals.Count} creatures", true);
+        logMessage($"Found {AllAnimals.Count} creatures", true);
         var harmony = new Harmony("Mlie.SomeLikeItRotten");
         harmony.PatchAll(Assembly.GetExecutingAssembly());
     }
 
-    private static void LogMessage(string message, bool forced = false)
+    private static void logMessage(string message, bool forced = false)
     {
         if (!forced && !SomeLikeItRottenMod.Instance.Settings.VerboseLogging)
         {
